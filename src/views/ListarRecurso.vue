@@ -6,10 +6,11 @@
           <v-select attach :items="cidades" label="Selecione a cidade"></v-select>
         </v-flex>-->
         <v-flex md12>
-          <material-card color="blue" title="Listagem">
+          <material-card color="blue">
             <v-data-table
               :headers="headers"
-              :items="alunos"
+              :items="recursos"
+              :loading="true"
               item-key="nome"
               hide-actions
               :pagination.sync="pagination"
@@ -21,10 +22,11 @@
                 >{{ props.item.titulo }}</td>
                 <td>{{ props.item.tipo }}</td>
                 <td>{{ props.item.descricao }}</td>
+                <td>{{ props.item.endereco }}</td>
               </template>
             </v-data-table>
             <div class="text-xs-center pt-2">
-              <v-pagination color="blue" v-model="pagination.page" :length="pages"></v-pagination>
+              <v-pagination v-model="pagination.page" :length="pages" color="#000000"></v-pagination>
             </div>
           </material-card>
         </v-flex>
@@ -40,6 +42,7 @@ export default {
       pagination: {},
       selected: [],
       items: [],
+      recursos: [],
       headers: [
         {
           text: "Título",
@@ -48,7 +51,8 @@ export default {
           value: "titulo"
         },
         { text: "Tipo", value: "tipo" },
-        { text: "Descrição", value: "descricao" }
+        { text: "Descrição", value: "descricao" },
+        { text: "Link", value: "endereco" }
       ],
     };
   },
@@ -57,23 +61,34 @@ export default {
     this.loadRecursos();
   },
 
+  computed: {
+    pages() {
+      if (this.pagination.totalItems == null) return 0;
+      this.pagination.rowsPerPage = 5;
+      return Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
+    }
+  },
+
   methods: {
     abrirModalInfoAluno(aluno) {
       console.log("Entrei aqui com...", aluno);
       this.alunoEscolhido = aluno;
       this.modalInfoAluno = true;
-    },
+  },
 
     loadRecursos () {
       let uri = "http://localhost:8080/api/v1/recurso/recursos";
       this.$http.get(uri).then(
         response => {
-          this.items = response.data;
-          this.pagination.totalItems = this.items.length;
+          this.recursos = response.data;
+          console.log(this.recursos);
+          this.pagination.totalItems = this.recursos.length;
           this.isLoading = false;
         },
         response => {
-          console.log("Erro ao carregar obras", response);
+          console.log("Erro ao carregar recursos", response);
           this.isLoading = false;
         }
       );

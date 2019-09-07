@@ -4,24 +4,99 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs12 md12>
-            <h2 align="center">Cadastro de Recurso</h2>
+            <h2 align="left">Sugerir um ODA</h2>
           </v-flex>
           <v-flex xs12 md6>
-            <v-text-field :items="nome" v-model="nome" label="Título"></v-text-field>
+            <v-text-field :items="nome" v-model="nome" label="Título do Objeto de Aprendizado"></v-text-field>
           </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field :items="nome" v-model="nome" label="URL do Objeto de Aprendizado"></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field :items="nome" v-model="nome" label="Descrição"></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field :items="nome" v-model="nome" label="Palavras Chave"></v-text-field>
+          </v-flex>
+          
+          <v-flex xs12 md12>
+            <h2 align="left">Filtros</h2>
+          </v-flex>          
+
           <v-flex xs12 md6>
             <v-select
               :items="tiposRecurso"
               v-model="tipoRecursoSelecionado"
               v-on:change="loadObrasCidade"
               attach
-              label="Selecione o tipo recurso"
+              label="Disciplina"
             ></v-select>
           </v-flex>
-          <v-flex xs12 md12>
-            <v-textarea name="input-7-1" label="Descrição" auto-grow></v-textarea>
+
+          <v-flex xs12 md6>
+            <v-select
+              :items="tiposRecurso"
+              v-model="tipoRecursoSelecionado"
+              v-on:change="loadObrasCidade"
+              attach
+              label="Etapas, anos e modalidades"
+            ></v-select>
           </v-flex>
-          <v-flex xs12 md12>
+
+          <v-flex xs12 md6>
+            <v-select
+              :items="tiposRecurso"
+              v-model="tipoRecursoSelecionado"
+              v-on:change="loadObrasCidade"
+              attach
+              label="Tipos de Mídias"
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 md6>
+            <v-select
+              :items="tiposRecurso"
+              v-model="tipoRecursoSelecionado"
+              v-on:change="loadObrasCidade"
+              attach
+              label="Conectividade"
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 md6>
+            <v-select
+              :items="tiposRecurso"
+              v-model="tipoRecursoSelecionado"
+              v-on:change="loadObrasCidade"
+              attach
+              label="Licenças de Uso"
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 md6>
+            <v-select
+              :items="tiposRecurso"
+              v-model="tipoRecursoSelecionado"
+              v-on:change="loadObrasCidade"
+              attach
+              label="Acessibilidade"
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 md6>
+            <v-select
+              v-model="variant"
+              :items="tiposRecurso"
+              filled
+              chips
+              deletable-chips
+              label="Variants"
+              multiple
+              small-chips
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 md6>
             <v-btn
               :loading="loading3"
               :disabled="loading3"
@@ -29,12 +104,12 @@
               class="white--text"
               @click="loader = 'loading3'"
             >
-              Anexar Arquivo
+              Anexar uma Imagem
               <v-icon right dark>cloud_upload</v-icon>
             </v-btn>
           </v-flex>
           <v-flex xs12 md12>
-            <v-btn @click="clear" color="blue-grey" class="white--text">Enviar</v-btn>
+            <v-btn @click="clear" color="blue-grey" class="white--text">Concluir</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
