@@ -2,34 +2,74 @@
   <div>
     <v-container fill-height fluid grid-list-xl>
       <v-layout justify-center wrap>
-        <!--<v-flex md8>
-          <v-select attach :items="cidades" label="Selecione a cidade"></v-select>
-        </v-flex>-->
-        <v-flex md12>
-          <material-card color="blue">
-            <v-data-table
-              :headers="headers"
-              :items="recursos"
-              :loading="true"
-              item-key="nome"
-              hide-actions
-              :pagination.sync="pagination"
-              class="elevation-1"
-            >
-              <template v-slot:items="props">
-                <td
-                  class="text-xs-left"
-                >{{ props.item.titulo }}</td>
-                <td>{{ props.item.tipo }}</td>
-                <td>{{ props.item.descricao }}</td>
-                <td>{{ props.item.endereco }}</td>
-              </template>
-            </v-data-table>
-            <div class="text-xs-center pt-2">
-              <v-pagination v-model="pagination.page" :length="pages" color="#000000"></v-pagination>
-            </div>
-          </material-card>
-        </v-flex>
+            <v-flex v-for="item in recursos">
+              <v-flex xs12 md12>
+              <div id="app">
+                <v-app id="inspire">
+                  <v-card
+                    :loading="loading"
+                    class="mx-auto my-12 ml-0"
+                    max-width="400"
+                    max-height="900"
+                  >
+                    <v-img
+                      height="200"
+                      width="300"
+                      class="mx-auto my-12"
+                      src="http://escoladigital-prod.s3.amazonaws.com/escoladigital/uploads/oda/picture/5949527869702d637dad1200/imagem_quebra_cabeca.png"
+                    ></v-img>
+                
+                    <v-card-title class="my-0" align="center">{{item.titulo}}</v-card-title>
+                    <v-card-text>
+                      <v-row class="my-0">
+                        <v-rating
+                          :value="4.5"
+                          color="amber"
+                          half-increments
+                          dense
+                          size="20"
+                          readonly
+                        ></v-rating>               
+                        <div class="grey--text ml-0">4.5 (413)</div>
+                      </v-row>
+                
+                      <div class="my-1 subtitle-1 black--text">
+                        Descrição:
+                      </div>
+                
+                      <div>{{item.descricao}}</div>
+                    </v-card-text>
+                
+                    <!--<v-divider class="mx-4"></v-divider>-->
+                
+                    <v-card-text>
+                      <div class="title text--primary">Palavras-chave:</div>
+                      <v-chip-group
+                        v-model="selection"
+                        active-class="deep-purple accent-4 white--text"
+                        column
+                      >
+                        <v-chip>Jogo</v-chip>
+                        <v-chip>Memória</v-chip>
+                        <v-chip>Educativo</v-chip>
+                        <v-chip>Lúdico</v-chip>
+                      </v-chip-group>
+                    </v-card-text>
+                
+                    <v-card-actions>
+                      <v-btn
+                        color="green"
+                        text
+                        @click="acessarRecurso(item.endereco)"
+                      >
+                        Acessar Recurso
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-app>
+              </div>
+              </v-flex>
+            </v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -93,6 +133,12 @@ export default {
         }
       );
       },
+
+    acessarRecurso(endereco){
+      window.open(endereco);
+    },
+
+
   }
 };
 </script>
