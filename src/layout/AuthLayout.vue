@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <router-link to="/">
-                                <img src="img/brand/green.png">
+                                <img src="https://www.imd.ufrn.br/portal/assets/images/IMD_logo_01-01.svg">
                             </router-link>
                         </div>
                         <div class="col-6 collapse-close">

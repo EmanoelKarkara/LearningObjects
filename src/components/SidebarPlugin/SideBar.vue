@@ -45,7 +45,7 @@
     props: {
       logo: {
         type: String,
-        default: 'img/brand/green.png',
+        default: 'https://www.imd.ufrn.br/portal/assets/images/IMD_logo_01-01.svg',
         description: 'Sidebar app logo'
       },
       autoClose: {

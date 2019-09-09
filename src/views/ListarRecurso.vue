@@ -76,6 +76,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import axios from 'axios'
+import { HttpClient } from "./utils/HttpClient";
 export default {
   data() {
     return {
@@ -118,27 +121,23 @@ export default {
       this.modalInfoAluno = true;
   },
 
-    loadRecursos () {
-      let uri = "http://localhost:8080/api/v1/recurso/recursos";
-      this.$http.get(uri).then(
-        response => {
-          this.recursos = response.data;
-          console.log(this.recursos);
-          this.pagination.totalItems = this.recursos.length;
-          this.isLoading = false;
-        },
-        response => {
-          console.log("Erro ao carregar recursos", response);
-          this.isLoading = false;
-        }
-      );
-      },
+  loadRecursos () {
+    let uri = "api/v1/recurso/recursos";
+      HttpClient.GET(`${uri}`).then((resposta) => {
+        this.recursos = resposta.data;
+      }).catch((error) => {
+          let snackbar = {
+              show: true,
+              //text: error.response.data.message,
+              color: 'error'
+          }
+          //dispatch('setSnackbar', snackbar)
+      })
+    },
 
     acessarRecurso(endereco){
       window.open(endereco);
     },
-
-
   }
 };
 </script>
