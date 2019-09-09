@@ -2,6 +2,17 @@
   <div>
     <v-container fill-height fluid grid-list-xl>
       <v-layout justify-center wrap>
+          <h1>Encontre aqui recursos digitais</h1>
+          <v-flex xs10>
+            <v-text-field
+              slot="activator"
+              clearable
+              label="Search"
+              prepend-icon="search"
+              v-model="cpf"
+            >
+            </v-text-field>
+          </v-flex>
             <v-flex v-for="item in recursos">
               <v-flex xs12 md12>
               <div id="app">
@@ -16,7 +27,7 @@
                       height="200"
                       width="300"
                       class="mx-auto my-12"
-                      src="http://escoladigital-prod.s3.amazonaws.com/escoladigital/uploads/oda/picture/5949527869702d637dad1200/imagem_quebra_cabeca.png"
+                      src="https://picsum.photos/400/200/?random"
                     ></v-img>
                 
                     <v-card-title class="my-0" align="center">{{item.titulo}}</v-card-title>
@@ -60,7 +71,7 @@
                       <v-btn
                         color="green"
                         text
-                        @click="acessarRecurso(item.endereco)"
+                        @click="acessarRecurso(item.url)"
                       >
                         Acessar Recurso
                       </v-btn>
@@ -135,8 +146,8 @@ export default {
       })
     },
 
-    acessarRecurso(endereco){
-      window.open(endereco);
+    acessarRecurso(url){
+      window.open(url);
     },
   }
 };

@@ -7,16 +7,36 @@
             <h2 align="left">Sugerir um ODA</h2>
           </v-flex>
           <v-flex xs12 md6>
-            <v-text-field :items="titulo" v-model="recurso.titulo" label="Título do Objeto de Aprendizado"></v-text-field>
+            <v-text-field 
+              :items="titulo" 
+              v-model="recurso.titulo"
+              :disabled="this.editar" 
+              label="Título do Objeto de Aprendizado">
+            </v-text-field>
           </v-flex>
           <v-flex xs12 md6>
-            <v-text-field :items="url" v-model="recurso.url" label="URL do Objeto de Aprendizado"></v-text-field>
+            <v-text-field 
+              :items="url" 
+              v-model="recurso.url"
+              :disabled="editar" 
+              label="URL do Objeto de Aprendizado">
+            </v-text-field>
           </v-flex>
           <v-flex xs12 md6>
-            <v-text-field :items="descricao" v-model="recurso.descricao" label="Descrição"></v-text-field>
+            <v-textarea 
+              :items="descricao" 
+              v-model="recurso.descricao"
+              :disabled="editar" 
+              label="Descrição">
+            </v-textarea>
           </v-flex>
           <v-flex xs12 md6>
-            <v-text-field :items="palavrasChave" v-model="recurso.palavrasChave" label="Palavras Chave"></v-text-field>
+            <v-text-field 
+              :items="palavrasChave" 
+              v-model="recurso.palavrasChave"
+              :disabled="editar" 
+              label="Palavras Chave">
+            </v-text-field>
           </v-flex>
           
           <v-flex xs12 md12>
@@ -27,6 +47,7 @@
             <v-select
               :items="disciplinas"
               v-model="recurso.disciplina"
+              :disabled="editar"
               attach
               label="Disciplina"
             ></v-select>
@@ -36,6 +57,7 @@
             <v-select
               :items="modalidades"
               v-model="recurso.modalidade"
+              :disabled="editar"
               attach
               label="Etapas, anos e modalidades"
             ></v-select>
@@ -45,6 +67,7 @@
             <v-select
               :items="tiposMidia"
               v-model="recurso.tipoMidia"
+              :disabled="editar"
               attach
               label="Tipos de Mídias"
             ></v-select>
@@ -54,6 +77,7 @@
             <v-select
               :items="conectividades"
               v-model="recurso.conectividade"
+              :disabled="editar"
               attach
               label="Conectividade"
             ></v-select>
@@ -63,6 +87,7 @@
             <v-select
               :items="licencasUso"
               v-model="recurso.licencaUso"
+              :disabled="editar"
               attach
               label="Licenças de Uso"
             ></v-select>
@@ -72,6 +97,7 @@
             <v-select
               :items="acessibilidades"
               v-model="recurso.acessibilidade"
+              :disabled="editar"
               attach
               label="Acessibilidade"
             ></v-select>
@@ -201,31 +227,16 @@ export default {
       ],
       obras: [],
       cidadeSelecionada: null,
-      obraSelecionada: null
+      obraSelecionada: null,
+      editar : false,
     };
   },
   mounted() {},
   methods: {
-    loadObrasCidade() {
-      let uri =
-        "http://localhost:8080/api/v1/obras/obras/" + this.cidadeSelecionada;
-
-      this.$http.get(uri).then(
-        response => {
-          this.obras = response.data;
-          this.pagination.totalItems = this.obras.length;
-          this.isLoading = false;
-        },
-        response => {
-          console.log("Erro ao carregar obras", response);
-          this.isLoading = false;
-        }
-      );
-    },
     salvarRecurso() {
       let uri = "/api/v1/recurso/recurso";
       HttpClient.POST(uri, this.recurso).then((resposta) => {
-            console.log("salvou");
+            this.editar = true
             //commit("setAluno", resposta.data);
             let snackbar = {
                 show: true,
@@ -246,6 +257,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style>
